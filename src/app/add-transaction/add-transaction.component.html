@@ -1,10 +1,10 @@
 <div class = "container">
-    <h2>New transactions:</h2>
-    <h3>Balance: {{balance}}</h3>
-    <form (ngSubmit)="onSubmit()" novalidate>
-        <label><input name="type" type="radio" [(ngModel)]="transaction.type" value="income">Income</label><br>
-        <label><input name="type" type="radio" [(ngModel)]="transaction.type" value="outgo">Outgo</label><br>
-        <input name="amount" [(ngModel)]="transaction.amount" placeholder="amount"><br>
-        <button [class.active]="checkType()">Add</button>
-    </form>
+	<h2>New transactions:</h2>
+	<h3>Balance: {{balance}}</h3>
+	<form (ngSubmit)="onSubmit()" novalidate>
+		<label><input name="type" type="radio" [(ngModel)]="transaction.type" value="income">Income</label><br>
+		<label><input name="type" type="radio" [(ngModel)]="transaction.type" value="outgo">Outgo</label><br>
+		<input name="amount" [(ngModel)]="transaction.amount" placeholder="amount"><br>
+		<button [class.active]="checkType()">Add</button>
+	</form>
 </div>
