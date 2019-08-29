@@ -5,9 +5,10 @@ import { TransactionHistoryComponent } from './transaction-history/transaction-h
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 
 
-const routes: Routes = [ 
+const routes: Routes = [
   { path: 'history', component: TransactionHistoryComponent },
-  { path: 'add', component: AddTransactionComponent }
+  { path: 'add-transaction', component: AddTransactionComponent },
+  { path: '', redirectTo: 'history', pathMatch: 'full' }
 ];
 
 @NgModule({

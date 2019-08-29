@@ -1,15 +1,10 @@
 .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
-label:hover {
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-button {
-  pointer-events: none;
-}
-.active {
-  pointer-events: all;
+
+#add-transaction label {
+  display: block;
 }

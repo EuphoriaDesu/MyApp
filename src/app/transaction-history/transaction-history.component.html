@@ -1,18 +1,18 @@
 <div class="container">
   <div class="transaction-history">
     <h2>Transactions:</h2>
-    <h3>Balance: {{balance}}</h3>
+    <h3>Balance: {{ balance }}</h3>
     <table class="transactions">
-      <tr *ngFor="let transaction of transactions" (click)="onSelect(transaction)">
-        <td><span class="badge">{{transaction.id}}</span></td>
-        <td>{{transaction.type}}</td>
-        <td>{{transaction.amount}}</td>
+      <tr *ngFor="let transaction of transactions" [class.selected]="isSelected(transaction)" (click)="onSelect(transaction)">
+        <td><span class="badge">{{ transaction.id }}</span></td>
+        <td>{{ transaction.type }}</td>
+        <td>{{ transaction.amount }}</td>
         <td (click)="deleteTransaction(transaction)" ><button class="delete-transaction"></button></td>
       </tr>
     </table>
     <div *ngIf="selectedTransaction">
-      <h2>Number of transaction:{{selectedTransaction.id}}</h2>
-      <h3>Type: {{selectedTransaction.type}}, Amount: {{selectedTransaction.amount}}</h3>
+      <h2>Number of transaction:{{ selectedTransaction.id }}</h2>
+      <h3>Type: {{ selectedTransaction.type }}, Amount: {{ selectedTransaction.amount }}</h3>
     </div>
   </div>
 </div>

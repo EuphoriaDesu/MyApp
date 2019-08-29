@@ -8,35 +8,36 @@ import { TransactionService } from '../transaction.service';
   templateUrl: './add-transaction.component.html',
   styleUrls: ['./add-transaction.component.css']
 })
+
 export class AddTransactionComponent implements OnInit {
   balance: number;
-  transaction: Transaction = {
-    id: null,
-    type: '',
-    amount: null
-  }
-  constructor(private transActionService: TransactionService) {
+  amountStr: string = null;
+  transaction = new Transaction();
 
+  constructor(private transActionService: TransactionService) {
   }
 
   ngOnInit() {
     this.balance = this.transActionService.getBalance();
   }
-  checkType (): boolean {
-    if(this.transaction.amount === null) return false;
-    if(isNaN(+this.transaction.amount)) return false;
-    return true;
+
+  isActive() {
+    return !!this.amountStr;
   }
-  onSubmit () {
-    
-    if( this.transaction.type === TransactionType.OUTGO && this.balance < +this.transaction.amount){
-      alert("Something went wrong");
+
+  numberOnly(event: KeyboardEvent) {
+    const charCode = event.which ? event.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  }
+
+  onSubmit() {
+    if (this.transaction.type === TransactionType.OUTGO && this.balance < +this.amountStr) {
+      alert('Something went wrong');
       return;
     }
     this.transaction.id = this.transActionService.getLastTransaction().id + 1;
-    this.transaction.amount = Number(this.transaction.amount);
+    this.transaction.amount = +this.amountStr;
     this.transActionService.setTransaction(this.transaction);
     this.balance = this.transActionService.getBalance();
   }
-
 }
