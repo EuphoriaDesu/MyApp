@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { RouterModule, Routes } from '@angular/router';
 import { AddTransactionComponent } from './add-transaction/add-transaction.component';
-
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 const routes: Routes = [
   { path: 'history', component: TransactionHistoryComponent },
@@ -15,4 +13,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule {
+}

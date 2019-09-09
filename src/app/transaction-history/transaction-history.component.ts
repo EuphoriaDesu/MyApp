@@ -7,13 +7,13 @@ import { TransactionService } from '../transaction.service';
   templateUrl: './transaction-history.component.html',
   styleUrls: ['./transaction-history.component.css']
 })
-
 export class TransactionHistoryComponent implements OnInit {
   transactions: Transaction[];
   balance: number;
   selectedTransaction = null;
 
-  constructor(private transactionService: TransactionService, private viewContainerRef: ViewContainerRef) { }
+  constructor(private transactionService: TransactionService) {
+  }
 
   ngOnInit() {
     this.getTransactions();
