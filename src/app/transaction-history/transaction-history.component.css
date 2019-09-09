@@ -54,7 +54,7 @@
   align-items: center;
 }
 
-.delete-transaction {
+.btn-delete {
   border: none;
   background: inherit;
 }

@@ -21,4 +21,5 @@ import { TransactionHistoryComponent } from './transaction-history/transaction-h
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

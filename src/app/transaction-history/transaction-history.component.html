@@ -7,7 +7,7 @@
         <td><span class="badge">{{ transaction.id }}</span></td>
         <td>{{ transaction.type }}</td>
         <td>{{ transaction.amount }}</td>
-        <td (click)="deleteTransaction(transaction)" ><button class="delete-transaction"></button></td>
+        <td (click)="deleteTransaction(transaction)" ><button class="btn-delete"></button></td>
       </tr>
     </table>
     <div *ngIf="selectedTransaction">
