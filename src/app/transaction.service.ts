@@ -12,8 +12,8 @@ export class TransactionService {
   transactions: Transaction[];
 
   constructor() {
-    this.balance = this.getInitialBalance();
     this.transactions = TRANSACTIONS;
+    this.balance = this.getFinalBalance();
   }
 
   getTransactions(): Observable<Transaction[]> {
@@ -22,7 +22,7 @@ export class TransactionService {
 
   setTransaction(transaction: Transaction) {
     this.transactions.push(transaction);
-    this.balance += transaction.type === TransactionType.INCOME ? transaction.amount : -transaction.amount;
+    this.balance = this.getFinalBalance();
   }
 
   getBalance(): number {
@@ -31,29 +31,23 @@ export class TransactionService {
 
   deleteTransaction(transaction: Transaction) {
     const index = this.transactions.indexOf(transaction);
-    this.balance += transaction.type === TransactionType.INCOME ? -transaction.amount : transaction.amount;
     if (index === 0) {
       this.transactions.shift();
     } else if (index === this.transactions.length - 1) {
       this.transactions.pop();
     } else {
-      this.transactions = [...this.transactions.slice(0, index), ...this.transactions.slice(index + 1)];
+      this.transactions.splice(index, 1);
     }
+    this.balance = this.getFinalBalance();
   }
 
   getLastTransaction(): Transaction {
     return TRANSACTIONS[TRANSACTIONS.length - 1];
   }
 
-  private getInitialBalance(): number {
-    let balance = 0;
-    TRANSACTIONS.forEach(transaction => {
-      if (transaction.type === TransactionType.INCOME) {
-        balance += transaction.amount;
-      } else {
-        balance -= transaction.amount;
-      }
-    });
-    return balance;
+  private getFinalBalance(): number {
+    return this.transactions.reduce((sum, current) => {
+      return sum += current.type === TransactionType.INCOME ? current.amount : -current.amount;
+    }, 0);
   }
 }
