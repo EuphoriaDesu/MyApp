@@ -1,18 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TransactionCreateComponent } from './transaction-create/transaction-create.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
-import { AddTransactionComponent } from './add-transaction/add-transaction.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TransactionHistoryComponent,
-    AddTransactionComponent
+    TransactionCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,11 @@ import { TransactionType } from '../transaction-type.enum';
 import { TransactionService } from '../transaction.service';
 
 @Component({
-  selector: 'app-add-transaction',
-  templateUrl: './add-transaction.component.html',
-  styleUrls: ['./add-transaction.component.css']
+  selector: 'app-transaction-create',
+  templateUrl: './transaction-create.component.html',
+  styleUrls: ['./transaction-create.component.css']
 })
-
-export class AddTransactionComponent implements OnInit {
+export class TransactionCreateComponent implements OnInit {
   balance: number;
   amountStr: string = null;
   transaction = new Transaction();

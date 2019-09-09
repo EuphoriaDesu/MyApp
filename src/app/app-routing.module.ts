@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddTransactionComponent } from './add-transaction/add-transaction.component';
+import { TransactionCreateComponent } from './transaction-create/transaction-create.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 const routes: Routes = [
   { path: 'history', component: TransactionHistoryComponent },
-  { path: 'add-transaction', component: AddTransactionComponent },
+  { path: 'transaction-create', component: TransactionCreateComponent },
   { path: '', redirectTo: 'history', pathMatch: 'full' }
 ];
 

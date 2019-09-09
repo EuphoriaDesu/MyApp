@@ -2,7 +2,7 @@ import { Transaction } from './transaction';
 import { TransactionType } from './transaction-type.enum';
 
 const OUTGO = TransactionType.OUTGO;
-const INCOME = TransactionType.INCOME; 
+const INCOME = TransactionType.INCOME;
 
 export let TRANSACTIONS: Transaction[] = [
   { id: 11, type: INCOME, amount: 500 },
