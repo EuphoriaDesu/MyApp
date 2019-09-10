@@ -4,3 +4,25 @@
   flex-direction: column;
   align-items: center;
 }
+
+.form-create {
+  border: 3px solid #0062cc;
+  padding: 20px;
+}
+
+.form-create label {
+  text-decoration: underline #0062cc;
+}
+
+.form-check {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.form-btn-container button {
+  display: inline-block;
+}
+
+.form-btn-container {
+  text-align: right;
+}
