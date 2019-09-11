@@ -1,21 +1,21 @@
 <div id="transaction-create" class="container">
-	<h2>New transaction:</h2>
-	<h3>Balance: {{ balance }}</h3>
-	<form class="form-create" (ngSubmit)="onSubmit()" novalidate>
-		<div class="form-group">
-			<label for="amount">Amount</label>
-			<input id="amount" type="text" name="amount" class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="amountStr">
-		</div>
-		<div class="form-group form-check">
-			<input id="income" class="form-check-input" type="radio" name="type" value="income" [(ngModel)]="transaction.type">
-			<label for="income" class="form-check-label">Income</label>
-		</div>
-		<div class="form-group form-check">
-			<input id="outgo" class="form-check-input" type="radio" name="type" value="outgo" [(ngModel)]="transaction.type">
-			<label for="outgo" class="form-check-label">Outgo</label>
-		</div>
-		<div class="form-btn-container">
-			<button class="btn btn-primary" [disabled]="!isActive()">Add</button>
-		</div>
-	</form>
+  <h2>New transaction:</h2>
+  <h3>Balance: {{ balance }}</h3>
+  <form class="form-create" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input id="amount" type="text" name="amount" class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="amountStr">
+    </div>
+    <div class="form-group form-check">
+      <input id="income" class="form-check-input" type="radio" name="type" value="income" [(ngModel)]="transaction.type">
+      <label for="income" class="form-check-label">Income</label>
+    </div>
+    <div class="form-group form-check">
+      <input id="outgo" class="form-check-input" type="radio" name="type" value="outgo" [(ngModel)]="transaction.type">
+      <label for="outgo" class="form-check-label">Outgo</label>
+    </div>
+    <div class="form-btn-container">
+      <button class="btn btn-primary" [disabled]="!isActive()">Add</button>
+    </div>
+  </form>
 </div>
