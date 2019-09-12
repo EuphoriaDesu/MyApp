@@ -13,7 +13,7 @@ export class TransactionService {
 
   constructor() {
     this.transactions = TRANSACTIONS;
-    this.balance = this.getFinalBalance();
+    this.updateBalance();
   }
 
   getTransactions(): Observable<Transaction[]> {
@@ -22,7 +22,7 @@ export class TransactionService {
 
   setTransaction(transaction: Transaction) {
     this.transactions.push(transaction);
-    this.balance = this.getFinalBalance();
+    this.updateBalance();
   }
 
   getBalance(): number {
@@ -38,16 +38,16 @@ export class TransactionService {
     } else {
       this.transactions.splice(index, 1);
     }
-    this.balance = this.getFinalBalance();
+    this.updateBalance();
   }
 
   getLastTransaction(): Transaction {
     return TRANSACTIONS[TRANSACTIONS.length - 1];
   }
 
-  private getFinalBalance(): number {
-    return this.transactions.reduce((sum, current) => {
-      return sum += current.type === TransactionType.INCOME ? current.amount : -current.amount;
+  private updateBalance(): void {
+    this.balance = this.transactions.reduce((sum, current) => {
+      return sum = current.type === TransactionType.INCOME ? current.amount : -current.amount;
     }, 0);
   }
 }
