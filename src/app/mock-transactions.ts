@@ -5,11 +5,11 @@ const OUTGO = TransactionType.OUTGO;
 const INCOME = TransactionType.INCOME;
 
 export let TRANSACTIONS: Transaction[] = [
-  { id: 11, type: INCOME, amount: 500 },
-  { id: 12, type: OUTGO, amount: 500 },
-  { id: 13, type: INCOME, amount: 500 },
-  { id: 14, type: OUTGO, amount: 500 },
-  { id: 15, type: INCOME, amount: 500 },
-  { id: 16, type: INCOME, amount: 500 },
-  { id: 17, type: OUTGO, amount: 500 }
+  { id: 1, type: INCOME, amount: 500 },
+  { id: 2, type: OUTGO, amount: 500 },
+  { id: 3, type: INCOME, amount: 500 },
+  { id: 4, type: OUTGO, amount: 500 },
+  { id: 5, type: INCOME, amount: 500 },
+  { id: 6, type: INCOME, amount: 500 },
+  { id: 7, type: OUTGO, amount: 500 }
 ];

@@ -20,9 +20,9 @@ export class TransactionService {
     return of(this.transactions);
   }
 
-  setTransaction(transaction: Transaction) {
+  createTransaction(transaction: Transaction) {
+    transaction.id = this.transactions.length + 1;
     this.transactions.push(transaction);
-    this.updateBalance();
   }
 
   getBalance(): number {
@@ -47,7 +47,7 @@ export class TransactionService {
 
   private updateBalance(): void {
     this.balance = this.transactions.reduce((sum, current) => {
-      return sum = current.type === TransactionType.INCOME ? current.amount : -current.amount;
+      return current.type === TransactionType.INCOME ? sum + current.amount : sum - current.amount;
     }, 0);
   }
 }

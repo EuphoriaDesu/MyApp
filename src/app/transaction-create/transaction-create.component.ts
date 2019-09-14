@@ -34,9 +34,8 @@ export class TransactionCreateComponent implements OnInit {
       alert('Something went wrong');
       return;
     }
-    this.transaction.id = this.transActionService.getLastTransaction().id + 1;
     this.transaction.amount = +this.amountStr;
-    this.transActionService.setTransaction(this.transaction);
+    this.transActionService.createTransaction(this.transaction);
     this.balance = this.transActionService.getBalance();
   }
 }
