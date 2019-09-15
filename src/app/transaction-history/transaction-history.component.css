@@ -1,40 +1,28 @@
-.badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #0062cc;
-  line-height: 2.5em;
-  position: relative;
-  left: -1px;
-  top: 0;
-  height: 4em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+h2 {
+  margin-top: 20px;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
+.transaction-description {
+  position: absolute;
 }
 
-.transaction-history {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.table {
+  margin-top: 30px;
 }
 
-td {
-  text-align: center;
+.table td {
+  padding: .6rem;
 }
 
-.btn-delete {
-  border: 1px solid #0062cc;
-  background: inherit;
-  color: #0062cc;
-  border-radius: 15px;
+.table td, th {
+  cursor: pointer;
 }
 
-.btn-delete:focus {
+.table tr:hover{
+  background-color: rgba(0, 0, 0, 0.075);
+  transition: .4s;
+}
+
+.close:active {
   outline: none;
 }

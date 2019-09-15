@@ -1,28 +1,10 @@
-.container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+h2 {
+  margin-top: 20px;
 }
 
-.form-create {
-  border: 3px solid #0062cc;
-  padding: 20px;
+h4 {
+  margin-bottom: 30px;
 }
-
-.form-create label {
-  text-decoration: underline #0062cc;
-}
-
-.form-check {
-  display: inline-block;
-  margin-left: 20px;
-}
-
-.form-btn-container button {
-  display: inline-block;
-}
-
-.form-btn-container {
-  text-align: right;
+.radio-buttons {
+  text-align: left;
 }
