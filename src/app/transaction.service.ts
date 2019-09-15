@@ -23,6 +23,7 @@ export class TransactionService {
   createTransaction(transaction: Transaction) {
     transaction.id = this.transactions.length + 1;
     this.transactions.push(transaction);
+    this.updateBalance();
   }
 
   getBalance(): number {

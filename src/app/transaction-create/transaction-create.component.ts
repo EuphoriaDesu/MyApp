@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction';
 import { TransactionType } from '../transaction-type.enum';
 import { TransactionService } from '../transaction.service';
+import { getLocaleFirstDayOfWeek } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-create',
@@ -35,7 +36,8 @@ export class TransactionCreateComponent implements OnInit {
       return;
     }
     this.transaction.amount = +this.amountStr;
-    this.transActionService.createTransaction(this.transaction);
+
+    this.transActionService.createTransaction(new Transaction({...this.transaction}));
     this.balance = this.transActionService.getBalance();
   }
 }
