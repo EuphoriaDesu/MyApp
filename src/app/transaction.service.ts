@@ -31,14 +31,7 @@ export class TransactionService {
   }
 
   deleteTransaction(transaction: Transaction) {
-    const index = this.transactions.indexOf(transaction);
-    if (index === 0) {
-      this.transactions.shift();
-    } else if (index === this.transactions.length - 1) {
-      this.transactions.pop();
-    } else {
-      this.transactions.splice(index, 1);
-    }
+    this.transactions = this.transactions.filter(t => t !== transaction);
     this.updateBalance();
   }
 
