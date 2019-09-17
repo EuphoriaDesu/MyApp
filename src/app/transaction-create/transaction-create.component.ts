@@ -13,17 +13,15 @@ export class TransactionCreateComponent implements OnInit {
   private amountStr: string = null;
   private transaction = new Transaction();
 
-  constructor(private transActionService: TransactionService) {
+  constructor(private transactionService: TransactionService) {
   }
 
   ngOnInit() {
-    this.transActionService.getBalance$().subscribe(balance => {
-      this.balance = balance;
-    });
+    this.transactionService.balance$.subscribe(balance => this.balance = balance);
   }
 
-  isActive() {
-    return !!this.amountStr;
+  canCreate() {
+    return !!this.amountStr && this.transaction.type;
   }
 
   numberOnly(event: KeyboardEvent) {
@@ -37,7 +35,6 @@ export class TransactionCreateComponent implements OnInit {
       return;
     }
     this.transaction.amount = +this.amountStr;
-    this.transActionService.createTransaction(new Transaction({...this.transaction}));
-  //  this.balance = this.transActionService.getBalance();
+    this.transactionService.createTransaction(this.transaction).subscribe();
   }
 }
