@@ -8,16 +8,18 @@ import { TransactionService } from '../transaction.service';
   styleUrls: ['./transaction-history.component.css']
 })
 export class TransactionHistoryComponent implements OnInit {
-  transactions: Transaction[];
-  balance: number;
-  selectedTransaction = null;
+  private transactions: Transaction[];
+  private balance: number;
+  private selectedTransaction = null;
 
   constructor(private transactionService: TransactionService) {
   }
 
   ngOnInit() {
     this.getTransactions();
-    this.balance = this.transactionService.getBalance();
+    this.transactionService.getBalance$().subscribe(balance => {
+      this.balance = balance;
+    });
   }
 
   onSelect(transaction: Transaction) {
@@ -31,7 +33,7 @@ export class TransactionHistoryComponent implements OnInit {
   deleteTransaction(transaction: Transaction) {
     this.transactionService.deleteTransaction(transaction);
     this.getTransactions();
-    this.balance = this.transactionService.getBalance();
+  //  this.balance = this.transactionService.getBalance();
   }
 
   getTransactions() {

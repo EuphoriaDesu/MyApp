@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction';
 import { TransactionType } from '../transaction-type.enum';
 import { TransactionService } from '../transaction.service';
-import { getLocaleFirstDayOfWeek } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-create',
@@ -10,15 +9,17 @@ import { getLocaleFirstDayOfWeek } from '@angular/common';
   styleUrls: ['./transaction-create.component.css']
 })
 export class TransactionCreateComponent implements OnInit {
-  balance: number;
-  amountStr: string = null;
-  transaction = new Transaction();
+  private balance: number;
+  private amountStr: string = null;
+  private transaction = new Transaction();
 
   constructor(private transActionService: TransactionService) {
   }
 
   ngOnInit() {
-    this.balance = this.transActionService.getBalance();
+    this.transActionService.getBalance$().subscribe(balance => {
+      this.balance = balance;
+    });
   }
 
   isActive() {
@@ -36,8 +37,7 @@ export class TransactionCreateComponent implements OnInit {
       return;
     }
     this.transaction.amount = +this.amountStr;
-
     this.transActionService.createTransaction(new Transaction({...this.transaction}));
-    this.balance = this.transActionService.getBalance();
+  //  this.balance = this.transActionService.getBalance();
   }
 }

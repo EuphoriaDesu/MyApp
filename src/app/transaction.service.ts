@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { TRANSACTIONS } from './mock-transactions';
 import { Transaction } from './transaction';
 import { TransactionType } from './transaction-type.enum';
@@ -8,26 +8,27 @@ import { TransactionType } from './transaction-type.enum';
   providedIn: 'root'
 })
 export class TransactionService {
-  balance = 0;
-  transactions: Transaction[];
+  balance$ = new BehaviorSubject(0);
+  private transactions: Transaction[];
 
   constructor() {
     this.transactions = TRANSACTIONS;
     this.updateBalance();
   }
 
-  getTransactions(): Observable<Transaction[]> {
+  getTransactions() {
     return of(this.transactions);
   }
 
   createTransaction(transaction: Transaction) {
-    transaction.id = this.transactions.length + 1;
+    const id = this.transactions[this.transactions.length - 1].id + 1;
+    transaction.id = id;
     this.transactions.push(transaction);
     this.updateBalance();
   }
 
-  getBalance(): number {
-    return this.balance;
+  getBalance$() {
+    return this.balance$.asObservable();
   }
 
   deleteTransaction(transaction: Transaction) {
@@ -35,13 +36,10 @@ export class TransactionService {
     this.updateBalance();
   }
 
-  getLastTransaction(): Transaction {
-    return TRANSACTIONS[TRANSACTIONS.length - 1];
-  }
-
-  private updateBalance(): void {
-    this.balance = this.transactions.reduce((sum, current) => {
+  private updateBalance() {
+    const balance = this.transactions.reduce((sum, current) => {
       return current.type === TransactionType.INCOME ? sum + current.amount : sum - current.amount;
     }, 0);
+    this.balance$.next(balance);
   }
 }
