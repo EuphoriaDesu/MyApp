@@ -8,6 +8,8 @@ import { TransactionCreateComponent } from './transaction-create/transaction-cre
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { StoreModule } from '@ngrx/store';
+import { balanceReducer } from './balanceStore.reducer';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     FormsModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+    StoreModule.forRoot({ balance: balanceReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

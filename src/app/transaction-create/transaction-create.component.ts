@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction';
 import { TransactionType } from '../transaction-type.enum';
 import { TransactionService } from '../transaction.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-transaction-create',
@@ -13,11 +14,11 @@ export class TransactionCreateComponent implements OnInit {
   private amountStr: string = null;
   private transaction = new Transaction();
 
-  constructor(private transactionService: TransactionService) {
+  constructor(private transactionService: TransactionService, private balanceStore: Store<{ balance: number }>) {
   }
 
   ngOnInit() {
-    this.transactionService.balance$.subscribe(balance => this.balance = balance);
+    this.balanceStore.subscribe(state => this.balance = state.balance);
   }
 
   canCreate() {

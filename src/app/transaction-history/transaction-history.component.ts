@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Transaction } from '../transaction';
 import { TransactionService } from '../transaction.service';
 
@@ -12,16 +13,16 @@ export class TransactionHistoryComponent implements OnInit {
   private selectedTransaction: Transaction;
   private deletedTransaction: Transaction;
 
-
   isDeleted = false;
   balance: number;
 
-  constructor(private transactionService: TransactionService) {
+  constructor(private transactionService: TransactionService, private balanceStore: Store<{ balance: number }>) {
   }
 
   ngOnInit() {
     this.transactionService.getTransactions().subscribe(transactions => this.transactions = transactions);
-    this.transactionService.balance$.subscribe(balance => this.balance = balance);
+    this.balanceStore.subscribe(state => this.balance = state.balance);
+    // this.transactionService.balance$.subscribe(balance => this.balance = balance);
   }
 
   onSelect(transaction: Transaction) {

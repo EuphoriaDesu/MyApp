@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Transaction } from './transaction';
 import { TransactionType } from './transaction-type.enum';
+import { Store } from '@ngrx/store';
+import { setInitialBalance, addTransactionAmount, deleteTransactionAmount } from './balanceStore.actions';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,17 +20,14 @@ export class TransactionService {
   private transactions: Transaction[];
   balance$: Observable<number>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private balanceStore: Store<{ balance: number }>) {
     this.balance$ = this.balanceSubject.asObservable();
   }
 
   getTransactions() {
     return this.http.get<Transaction[]>(this.transactionsUrl)
       .pipe(
-        tap(transactions => {
-          this.transactions = transactions;
-          this.updateBalance();
-        }),
+        tap(transactions => this.balanceStore.dispatch(setInitialBalance({ transactions }))),
         catchError(this.handleError<Transaction[]>('getTransactions', []))
       );
   }
@@ -36,10 +35,7 @@ export class TransactionService {
   createTransaction(transaction: Transaction) {
     return this.http.post<Transaction>(this.transactionsUrl, transaction, httpOptions)
       .pipe(
-        tap(createdTransaction => {
-          this.transactions.push(createdTransaction);
-          this.updateBalance();
-        }),
+        tap(createdTransaction => this.balanceStore.dispatch(addTransactionAmount({ transaction }))),
         catchError(this.handleError<Transaction[]>('createTransactions'))
       );
   }
@@ -48,24 +44,21 @@ export class TransactionService {
     const url = `${this.transactionsUrl}/${transaction.id}`;
     return this.http.delete<Transaction>(url, httpOptions)
       .pipe(
-        tap(() => {
-          this.transactions = this.transactions.filter(t => t !== transaction);
-          this.updateBalance();
-        }),
+        tap(() => this.balanceStore.dispatch(deleteTransactionAmount({ transaction }))),
         catchError(this.handleError<Transaction>('deleteTransaction'))
       );
   }
 
-  private updateBalance() {
-    const balance = this.transactions.reduce((sum, current) => {
-      return current.type === TransactionType.INCOME ? sum + current.amount : sum - current.amount;
-    }, 0);
-    this.balanceSubject.next(balance);
-  }
+  // private updateBalance() {
+  //   const balance = this.transactions.reduce((sum, current) => {
+  //     return current._type === TransactionType.INCOME ? sum + current.amount : sum - current.amount;
+  //   }, 0);
+  //   this.balanceSubject.next(balance);
+  // }
 
   private handleError<T>(operation = '', result?: T) {
     return (error: any): Observable<T> => {
-      console.log(`${operation} failed ${error.message}`);
+      console.log(`${operation} failed ${error}`);
       return of(result as T);
     };
   }
