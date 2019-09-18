@@ -8,3 +8,7 @@ h4 {
 .radio-buttons {
   text-align: left;
 }
+
+.input-amount {
+  height: 50px;
+}

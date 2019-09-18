@@ -14,6 +14,8 @@ export class TransactionCreateComponent implements OnInit {
   private amountStr: string = null;
   private transaction = new Transaction();
 
+  isInvalid: boolean;
+
   constructor(private transactionService: TransactionService, private balanceStore: Store<{ balance: number }>) {
   }
 
@@ -32,9 +34,10 @@ export class TransactionCreateComponent implements OnInit {
 
   onSubmit() {
     if (this.transaction.type === TransactionType.OUTGO && this.balance < +this.amountStr) {
-      alert('Something went wrong');
+      this.isInvalid = true;
       return;
     }
+    this.isInvalid = false;
     this.transaction.amount = +this.amountStr;
     this.transactionService.createTransaction(this.transaction).subscribe();
   }
