@@ -9,7 +9,7 @@ import { TransactionHistoryComponent } from './transaction-history/transaction-h
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { StoreModule } from '@ngrx/store';
-import { balanceReducer } from './balanceStore.reducer';
+import { balanceReducer } from './balance-store.reducer';
 
 @NgModule({
   declarations: [

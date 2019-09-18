@@ -13,16 +13,15 @@ export class TransactionHistoryComponent implements OnInit {
   private selectedTransaction: Transaction;
   private deletedTransaction: Transaction;
 
-  isDeleted = false;
   balance: number;
 
-  constructor(private transactionService: TransactionService, private balanceStore: Store<{ balance: number }>) {
+  constructor(private transactionService: TransactionService,
+              private balanceStore: Store<{balance: number}>) {
   }
 
   ngOnInit() {
     this.transactionService.getTransactions().subscribe(transactions => this.transactions = transactions);
     this.balanceStore.subscribe(state => this.balance = state.balance);
-    // this.transactionService.balance$.subscribe(balance => this.balance = balance);
   }
 
   onSelect(transaction: Transaction) {

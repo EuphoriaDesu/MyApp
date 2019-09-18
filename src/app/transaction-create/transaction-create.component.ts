@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Transaction } from '../transaction';
 import { TransactionType } from '../transaction-type.enum';
 import { TransactionService } from '../transaction.service';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-transaction-create',
@@ -16,20 +16,17 @@ export class TransactionCreateComponent implements OnInit {
 
   isInvalid: boolean;
 
-  constructor(private transactionService: TransactionService, private balanceStore: Store<{ balance: number }>) {
+  constructor(private transactionService: TransactionService,
+              private balanceStore: Store<{balance: number}>) {
   }
 
   ngOnInit() {
-    this.balanceStore.subscribe(state => this.balance = state.balance);
-  }
-
-  canCreate() {
-    return !!this.amountStr && this.transaction.type;
-  }
-
-  numberOnly(event: KeyboardEvent) {
-    const charCode = event.which ? event.which : event.keyCode;
-    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    this.balanceStore.subscribe(state => {
+      if (state.balance === null) {
+        this.transactionService.getTransactions().subscribe();
+      }
+      this.balance = state.balance;
+    });
   }
 
   onSubmit() {
@@ -40,5 +37,14 @@ export class TransactionCreateComponent implements OnInit {
     this.isInvalid = false;
     this.transaction.amount = +this.amountStr;
     this.transactionService.createTransaction(this.transaction).subscribe();
+  }
+
+  canCreate() {
+    return !!this.amountStr && +this.amountStr !== 0 && this.transaction.type;
+  }
+
+  numberOnly(event: KeyboardEvent) {
+    const charCode = event.which ? event.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
   }
 }
