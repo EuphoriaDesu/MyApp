@@ -20,7 +20,7 @@ export class TransactionService {
               private balanceStore: Store<{balance: number}>) {
   }
 
-  getTransactions() {
+  public getTransactions() {
     return this.http.get<Transaction[]>(this.transactionsUrl)
       .pipe(
         tap(transactions => this.balanceStore.dispatch(setBalance({transactions}))),
@@ -28,7 +28,7 @@ export class TransactionService {
       );
   }
 
-  createTransaction(transaction: Transaction) {
+  public createTransaction(transaction: Transaction) {
     return this.http.post<Transaction>(this.transactionsUrl, transaction, httpOptions)
       .pipe(
         tap(() => this.balanceStore.dispatch(addTransactionAmount({transaction}))),
@@ -36,12 +36,20 @@ export class TransactionService {
       );
   }
 
-  deleteTransaction(transaction: Transaction) {
+  public deleteTransaction(transaction: Transaction) {
     const url = `${this.transactionsUrl}/${transaction.id}`;
     return this.http.delete<Transaction>(url, httpOptions)
       .pipe(
         tap(() => this.balanceStore.dispatch(deleteTransactionAmount({transaction}))),
         catchError(this.handleError<Transaction>('deleteTransaction'))
+      );
+  }
+
+  public updateTransaction(transaction: Transaction) {
+    return this.http.put(this.transactionsUrl, transaction, httpOptions)
+      .pipe(
+        tap(() => this.getTransactions().subscribe(transactions => this.balanceStore.dispatch(setBalance({transactions})))),
+        catchError(this.handleError<Transaction>('updateTransaction'))
       );
   }
 

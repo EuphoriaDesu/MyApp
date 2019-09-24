@@ -2,15 +2,19 @@
     <h2><strong>Transactions</strong></h2>
     <h4>Balance: {{ balance }}</h4>
   <div class="row">
-    <div class="col-12 col-lg-6 m-auto">
+    <div class="col-12 col-lg-7 m-auto">
       <table class="table">
-        <tr *ngFor="let transaction of transactions" [class.selected]="isSelected(transaction)" (click)="onSelect(transaction)">
-          <th scope="row">{{ transaction.id }}</th>
-          <td>{{ transaction.type }}</td>
-          <td>{{ transaction.amount }}</td>
-          <td>
-            <button class="close" type="button" aria-label="Close" [class.delete]="isSelectedToDelete(transaction)" (click)="deleteTransaction(transaction)">
+        <tr *ngFor="let transaction of transactions" [class.selected]="isSelected(transaction)">
+          <th (click)="onSelect(transaction)" style="width: 10%" scope="row">{{ transaction.id }}</th>
+          <td (click)="onSelect(transaction)" class="td-transaction-type">{{ transaction.type }}</td>
+          <td (click)="onSelect(transaction)" class="td-transaction-amount">{{ transaction.amount }}</td>
+          <td (click)="onSelect(transaction)" class="td-transaction-desc"><span class="text-wrap d-block m-auto">{{ transaction.description }}</span></td>
+          <td style="width: 26%">
+            <button class="close transaction-table-btn" type="button" aria-label="Close" [class.delete]="isSelectedToDelete(transaction)" (click)="deleteTransaction(transaction)">
               <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="close transaction-table-btn" type="button" aria-label="Edit" (click)="editTransaction(transaction)">
+              <i class="fas fa-pen"></i>
             </button>
           </td>
         </tr>
@@ -21,6 +25,22 @@
     <div class="alert alert-light transaction-description m-auto" *ngIf="selectedTransaction">
       <h2><strong>Number of transaction:</strong> {{ selectedTransaction.id }}</h2>
       <h3><strong>Type:</strong> {{ selectedTransaction.type }}, <strong>Amount:</strong> {{ selectedTransaction.amount }}</h3>
+    </div>
+  </div>
+</div>
+
+<div class="modal show" *ngIf="editedTransaction">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content col-9">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit transaction</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-transaction-form (formSubmited)="onSubmit($event)"></app-transaction-form>
+      </div>
     </div>
   </div>
 </div>

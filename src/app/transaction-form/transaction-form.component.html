@@ -1,0 +1,32 @@
+<form (ngSubmit)="onSubmit()" novalidate>
+  <div class="form-group row has-danger">
+    <label for="amount" class="form-control-label">Amount:</label>  
+    <input id="amount" class="form-control" type="text" placeholder="Type amount here..." [class.is-invalid]="inputAmount.errors && (inputAmount.touched || inputAmount.dirty)" [(formControl)]="inputAmount">
+    <div class="container-invalid-feedback" *ngIf="inputAmount.invalid && (inputAmount.dirty || inputAmount.touched)">
+      <div class="invalid-feedback" *ngIf="inputAmount.errors.greaterThanNull">Balance must be greater than 0.</div>
+      <div class="invalid-feedback" *ngIf="inputAmount.errors.required">Required input</div>
+      <div class="invalid-feedback" *ngIf="inputAmount.errors.pattern">Only numbers</div>
+    </div>
+  </div>
+
+  
+  <div class="form-group row">
+    <label for="comment" class="form-control-label">Comment:</label>
+    <input class="form-control" type="text" placeholder="Type comment here..." name="description" [(ngModel)]="transaction.description">
+  </div>
+  <div class="row d-flex justify-content-around">
+    <div class="radio-buttons">
+      <div class="custom-control custom-radio">
+        <input id="income" class="custom-control-input" type="radio" name="type" value="income" [(ngModel)]="transaction.type">
+        <label for="income" class="custom-control-label">Income</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input id="outgo" class="custom-control-input" type="radio" name="type" value="outgo" [(ngModel)]="transaction.type">
+        <label for="outgo" class="custom-control-label">Outgo</label>
+      </div>
+    </div>
+    <div class="form-btn-container">
+      <button class="btn btn-primary" [disabled]="!canCreate">Save</button>
+    </div>
+  </div>
+</form>

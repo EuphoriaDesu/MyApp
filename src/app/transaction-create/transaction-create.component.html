@@ -4,27 +4,7 @@
   <div class="row">
     <div class="col-11 col-md-6 col-lg-3 m-auto">
       <h4 class="text-muted">Create new transaction:</h4>
-      <form (ngSubmit)="onSubmit()" novalidate>
-        <div class="form-group row input-amount">
-          <input id="amount" class="form-control" type="text" name="amount" placeholder="Amount" [class.is-invalid]="isInvalid" (keypress)="numberOnly($event)" [(ngModel)]="amountStr">
-          <div class="invalid-feedback" *ngIf="isInvalid">Balance must be greater than 0.</div>
-        </div>
-        <div class="row d-flex justify-content-around">
-          <div class="radio-buttons">
-            <div class="custom-control custom-radio">
-              <input id="income" class="custom-control-input" type="radio" name="type" value="income" [(ngModel)]="transaction.type">
-              <label for="income" class="custom-control-label">Income</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="outgo" class="custom-control-input" type="radio" name="type" value="outgo" [(ngModel)]="transaction.type">
-              <label for="outgo" class="custom-control-label">Outgo</label>
-            </div>
-          </div>
-          <div class="form-btn-container">
-            <button class="btn btn-primary" [disabled]="!canCreate()">Create</button>
-          </div>
-        </div>
-      </form>
+      <app-transaction-form [(isBalanceInvalid)]="isBalanceInvalid" (formSubmited)="onSubmit($event)" ></app-transaction-form>
     </div>
   </div>
 </div>
